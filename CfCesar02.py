@@ -2,20 +2,19 @@ def encrypt(message, key):
     """Criptografa a mensagem usando a Cifra de César."""
     encrypted_message = ""
     for char in message:
-        if char.isalpha():  # Verifica se é uma letra
-            shift = 65 if char.isupper() else 97  # Ajusta para maiúsculas/minúsculas
-            encrypted_message += chr((ord(char) - shift + key) % 26 + shift)
-        else:
-            encrypted_message += char  # Mantém espaços e pontuação
+        encrypted_message += chr((ord(char) + key))  # Lógica simplificada
     return encrypted_message
 
 def decrypt(encrypted_message, key):
     """Descriptografa a mensagem usando a Cifra de César."""
-    return encrypt(encrypted_message, -key)  # Reutiliza a função de criptografia
+    decrypted_message = ""
+    for char in encrypted_message:
+        decrypted_message += chr((ord(char) - key))  # Deslocamento inverso
+    return decrypted_message
 
 # Exemplo de uso
-mensagem = "Ola Mundo!"
-chave = 3
+mensagem = "hamster"
+chave = 2
 
 # Criptografia
 mensagem_criptografada = encrypt(mensagem, chave)

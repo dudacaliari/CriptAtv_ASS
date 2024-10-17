@@ -1,33 +1,26 @@
 def vigenere_encrypt(message, key):
-    """Criptografa a mensagem usando a Cifra de Vigenère."""
+    """Criptografa a mensagem usando a Cifra de Vigenère (simplificada)."""
     encrypted_message = ""
-    # Repete a chave até o comprimento da mensagem
-    key_repeated = (key * (len(message) // len(key) + 1))[:len(message)]
+    key_repeated = (key * (len(message) // len(key) + 1))[:len(message)] #Repetição da chave
 
     for m, k in zip(message, key_repeated):
-        if m.isalpha():  # Verifica se é uma letra
-            shift = 65 if m.isupper() else 97  # Determina o offset para letras maiúsculas/minúsculas
-            encrypted_message += chr((ord(m) - shift + ord(k.lower()) - 97) % 26 + shift)
-        else:
-            encrypted_message += m  # Mantém espaços e pontuação
+        encrypted_message += chr(((ord(m) - 97 + ord(k) - 97) % 26) + 97)
+    
     return encrypted_message
 
 def vigenere_decrypt(encrypted_message, key):
-    """Descriptografa a mensagem usando a Cifra de Vigenère."""
+    """Descriptografa a mensagem usando a Cifra de Vigenère (simplificada)."""
     decrypted_message = ""
     key_repeated = (key * (len(encrypted_message) // len(key) + 1))[:len(encrypted_message)]
 
     for e, k in zip(encrypted_message, key_repeated):
-        if e.isalpha():  # Verifica se é uma letra
-            shift = 65 if e.isupper() else 97
-            decrypted_message += chr((ord(e) - shift - (ord(k.lower()) - 97)) % 26 + shift)
-        else:
-            decrypted_message += e  # Mantém espaços e pontuação
+        decrypted_message += chr(((ord(e) - 97 - (ord(k) - 97)) % 26) + 97)
+    
     return decrypted_message
 
 # Exemplo de uso
-mensagem = "A Cifra Vigenere é interessante"
-chave = "chave"
+mensagem = "likethelastnight"
+chave = "dream"
 
 # Criptografia
 mensagem_criptografada = vigenere_encrypt(mensagem, chave)
